@@ -51,16 +51,16 @@ public class Game {
 		return players.size();
 	}
 
-	public void roll(int roll) {
+	public void roll(int numberRolled) {
 		System.out.println(players.get(currentPlayer) + " is the current player");
-		System.out.println("They have rolled a " + roll);
+		System.out.println("They have rolled a " + numberRolled);
 		
 		if (inPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
+			if (numberRolled % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				places[currentPlayer] = places[currentPlayer] + roll;
+				places[currentPlayer] = places[currentPlayer] + numberRolled;
 				if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 				
 				System.out.println(players.get(currentPlayer) 
@@ -75,7 +75,7 @@ public class Game {
 			
 		} else {
 		
-			places[currentPlayer] = places[currentPlayer] + roll;
+			places[currentPlayer] = places[currentPlayer] + numberRolled;
 			if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 			
 			System.out.println(players.get(currentPlayer) 
@@ -88,17 +88,21 @@ public class Game {
 	}
 
 	private void askQuestion() {
+
 		if (currentCategory() == "Pop")
-			System.out.println(popQuestions.removeFirst());
+			printFirstQuestion(popQuestions);
 		if (currentCategory() == "Science")
-			System.out.println(scienceQuestions.removeFirst());
+			printFirstQuestion(scienceQuestions);
 		if (currentCategory() == "Sports")
-			System.out.println(sportsQuestions.removeFirst());
+			printFirstQuestion(sportsQuestions);
 		if (currentCategory() == "Rock")
-			System.out.println(rockQuestions.removeFirst());		
+			printFirstQuestion(rockQuestions);
 	}
-	
-	
+
+	private void printFirstQuestion(LinkedList questions) {
+		System.out.println(questions.removeFirst());
+	}
+
 	private String currentCategory() {
 		if (places[currentPlayer] == 0) return "Pop";
 		if (places[currentPlayer] == 4) return "Pop";
